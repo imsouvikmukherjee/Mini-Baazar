@@ -34,7 +34,7 @@ class ProductController extends Controller
             $html.='<option value="'.$item->id.'">'.$item->s_name.'</option>';
         }
 
-        echo $html;
+        return $html;
 
     }
 
@@ -50,7 +50,7 @@ class ProductController extends Controller
             $html.='<option value="'.$item->id.'">'.$item->ss_name.'</option>';
         }
 
-        echo $html;
+        return $html;
     }
 
 
