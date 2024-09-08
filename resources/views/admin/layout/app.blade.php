@@ -16,11 +16,11 @@
     <link href="{{ asset('admin_assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin_assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css') }}" rel="stylesheet" />
     <!--plugins-->
-	
-	<link href="{{ asset('admin_assets/plugins/metismenu/css/metisMenu.min.css')}}" rel="stylesheet" />
-	<link href="{{ asset('admin_assets/plugins/datatable/css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" />
-	<link href="{{ asset('admin_assets/plugins/input-tags/css/tagsinput.css')}}" rel="stylesheet" />
-    
+
+    <link href="{{ asset('admin_assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin_assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('admin_assets/plugins/input-tags/css/tagsinput.css') }}" rel="stylesheet" />
+
     <!-- loader-->
     <link href="{{ asset('admin_assets/css/pace.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('admin_assets/js/pace.min.js') }}"></script>
@@ -34,22 +34,21 @@
     <link rel="stylesheet" href="{{ asset('admin_assets/css/semi-dark.css') }}" />
     <link rel="stylesheet" href="{{ asset('admin_assets/css/header-colors.css') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
+
     <title>Amdash - Bootstrap 5 Admin Template</title>
 
     <style>
         .scrollable-row {
-    overflow-x: auto;
-    white-space: nowrap;
-    padding-bottom: 15px; /* Optional: Adds space for the scrollbar */
-}
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 15px;
+            /* Optional: Adds space for the scrollbar */
+        }
 
-.scrollable-row .row {
-    flex-wrap: nowrap; /* Prevents wrapping of columns to the next line */
-}
-
-
-
+        .scrollable-row .row {
+            flex-wrap: nowrap;
+            /* Prevents wrapping of columns to the next line */
+        }
     </style>
 
 </head>
@@ -89,53 +88,102 @@
     <script src="{{ asset('admin_assets/js/index.js') }}"></script>
     <!--app JS-->
     <script src="{{ asset('admin_assets/js/app.js') }}"></script>
-    <script src="{{ asset('admin_assets/js/bootstrap.bundle.min.js')}}"></script>
-	<!--plugins-->
-	<script src="{{ asset('admin_assets/js/jquery.min.js')}}"></script>
-	<script src="{{ asset('admin_assets/plugins/simplebar/js/simplebar.min.js')}}"></script>
-	<script src="{{ asset('admin_assets/plugins/metismenu/js/metisMenu.min.js')}}"></script>
-	<script src="{{ asset('admin_assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js')}}"></script>
-	<script src="{{ asset('admin_assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
-	<script src="{{ asset('admin_assets/plugins/datatable/js/dataTables.bootstrap5.min.js')}}"></script>
-	<script src="{{ asset('admin_assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js')}}"></script>
-	<script src="{{ asset('admin_assets/plugins/input-tags/js/tagsinput.js')}}"></script>
-   
-	<script>
-		$(document).ready(function() {
-			$('#example').DataTable();
-		  } );
-	</script>
-	<script>
-		$(document).ready(function() {
-			var table = $('#example2').DataTable( {
-				lengthChange: false,
-				buttons: [ 'copy', 'excel', 'pdf', 'print']
-			} );
-		 
-			table.buttons().container()
-				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
-		} );
-	</script>
+    <script src="{{ asset('admin_assets/js/bootstrap.bundle.min.js') }}"></script>
+    <!--plugins-->
+    <script src="{{ asset('admin_assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('admin_assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
+    <script src="{{ asset('admin_assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('admin_assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('admin_assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('admin_assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('admin_assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js') }}"></script>
+    <script src="{{ asset('admin_assets/plugins/input-tags/js/tagsinput.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+
     <script>
-		$(document).ready(function () {
-			$('#image-uploadify').imageuploadify();
-		})
-	</script>
-      <script>
-		$(document).ready(function () {
-			$('#image-uploadify1').imageuploadify();
-		})
-	</script>
+        $(document).ready(function() {
+            $('#category').change(function() {
+                let categoryId = $(this).val();
+                let csrf = $("meta[name='csrf-token']").attr("content");
+                $('#subsubcategory').html(' <option selected disabled>Choose</option>');
+                $.ajax({
+                    type: "post",
+                    url: "/getsub-category",
+                    data: {
+                        categoryId: categoryId,
+                        _token: csrf
+                    },
+
+                    success: function(response) {
+                        $('#subcategory').html(response)
+                    }
+                });
+            });
+        });
+    </script>
 
 
-<script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
-<script>
-ClassicEditor
-    .create( document.querySelector( '#editor' ) )
-    .catch( error => {
-        console.error( error );
-    } );
-</script>
+    <script>
+        $(document).ready(function() {
+            $('#subcategory').change(function() {
+                let subCategoryId = $(this).val();
+                let csrf = $("meta[name='csrf-token']").attr("content");
+
+                $.ajax({
+                    type: "post",
+                    url: "/getsub-sub-category",
+                    data: {
+                        subCategoryId: subCategoryId,
+                        _token: csrf
+                    },
+
+                    success: function(response) {
+                        $('#subsubcategory').html(response)
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#example2').DataTable({
+                lengthChange: false,
+                buttons: ['copy', 'excel', 'pdf', 'print']
+            });
+
+            table.buttons().container()
+                .appendTo('#example2_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#image-uploadify').imageuploadify();
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#image-uploadify1').imageuploadify();
+        })
+    </script>
+
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 </body>
 
 </html>

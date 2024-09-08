@@ -132,6 +132,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
   });
 
+
+ Route::post('/getsub-category',[ProductController::class,'getsubCategory']);
+ Route::post('/getsub-sub-category',[ProductController::class,'getSubSubCategory']);
+
+
   //   Admin Login
 
   Route::get('/admin', function () {
