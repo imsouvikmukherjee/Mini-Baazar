@@ -5,7 +5,7 @@
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
-                    <a href="{{ url('/') }}"><img src="{{ asset('front_assets/imgs/logo/logo.jpeg') }}"
+                    <a href="{{ url('/') }}"><img class="mainlogo" src="{{ asset('front_assets/imgs/logo/logo.jpeg') }}"
                             alt="logo')}}"></a>
                 </div>
                 <div class="header-right">
@@ -152,11 +152,15 @@
                                 </a>
                             </div>
 
-                            <div class="header-action-icon-2">
+                            {{-- Return Order Button  --}}
+
+                            {{-- <div class="header-action-icon-2">
                                 <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal">
                                   Return Order 
                                   </button>
-                            </div>
+                            </div> --}}
+
+
                         </div>
                     </div>
                 </div>
@@ -230,7 +234,7 @@
                     <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
                         <nav>
                             <ul>
-                                <li><a class="active" href="index.html">Home </a></li>
+                                {{-- <li><a class="active" href="index.html">Home </a></li> --}}
                                 <!-- <li><a href="about.html">About</a></li> -->
                                 <!-- <li><a href="shop.html">Shop</a></li> -->
                                 <li class="position-static"><a href="#">Our Collections <i
@@ -265,7 +269,7 @@
                                     </ul>
                                 </li>
 
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="{{route('contact_us')}}">Contact</a></li>
 
                             </ul>
                         </nav>
