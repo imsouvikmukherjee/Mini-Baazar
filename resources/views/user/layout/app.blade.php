@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>sharmadresses</title>
+    <title>Mini-Baazar</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +11,7 @@
     <meta property="og:type" content="">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('front_assets/imgs/theme/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('front_assets/imgs/theme/logo.jpeg') }}">
     <link rel="stylesheet" href="{{ asset('front_assets/css/main.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
@@ -36,6 +36,37 @@
     font-size: 20px; /* Adjust the font size as needed */
     color: #13f40f; /* Adjust the color if needed */
 }
+
+
+<!-- Responsive Logo Styling -->
+
+    .logo-width-1 img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Responsive Header for Smaller Screens */
+    @media (max-width: 991px) {
+        .header-middle .header-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-middle .header-action-right {
+            margin-top: 15px;
+        }
+
+        .logo-width-1 {
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .header-middle .header-wrap {
+            padding: 0 15px;
+        }
+    }
 
     </style>
 </head>

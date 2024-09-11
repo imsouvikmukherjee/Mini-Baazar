@@ -5,7 +5,7 @@
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
-                    <a href="{{ url('/') }}"><img src="{{ asset('front_assets/imgs/logo/logo.png') }}"
+                    <a href="{{ url('/') }}"><img src="{{ asset('front_assets/imgs/logo/logo.jpeg') }}"
                             alt="logo')}}"></a>
                 </div>
                 <div class="header-right">
@@ -214,7 +214,7 @@
         <div class="container">
             <div class="header-wrap header-space-between position-relative">
                 <div class="logo logo-width-1 d-block d-lg-none">
-                    <a href="index.html"><img src="{{ asset('front_assets/imgs/logo/logo.png') }}" alt="logo')}}"></a>
+                    <a href="index.html"><img src="{{ asset('front_assets/imgs/logo/logo.jpeg') }}" alt="logo')}}"></a>
                 </div>
                 <div class="header-nav d-none d-lg-flex">
                     <div class="main-categori-wrap d-none d-lg-block">
@@ -388,7 +388,7 @@
     <div class="mobile-header-wrapper-inner">
         <div class="mobile-header-top">
             <div class="mobile-header-logo">
-                <a href="index.html"><img src="{{ asset('front_assets/imgs/logo/logo.png') }}" alt="logo')}}"></a>
+                <a href="index.html"><img src="{{ asset('front_assets/imgs/logo/logo.jpeg') }}" alt="logo')}}"></a>
             </div>
             <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                 <button class="close-style search-close">

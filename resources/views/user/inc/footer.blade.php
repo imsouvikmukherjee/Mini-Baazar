@@ -5,8 +5,8 @@
                 <div class="col-lg-7 mb-md-3 mb-lg-0">
                     <div class="row align-items-center">
                         <div class="col flex-horizontal-center">
-                            <img class="icon-email"
-                                src="{{ asset('front_assets/imgs/theme/icons/icon-email.svg') }}"
+                            <img class="icon-email" style="height: 60px; width: 60px" 
+                                src="{{ asset('front_assets/imgs/theme/icons/icon-email.png') }}"
                                 alt="">
                             <h4 class="font-size-20 mb-0 ml-3">Sign up to Newsletter</h4>
                         </div>
@@ -34,7 +34,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="widget-about font-md mb-md-5 mb-lg-0">
                         <div class="logo logo-width-1 wow fadeIn animated">
-                            <a href="index.html"><img src="{{ asset('front_assets/imgs/logo/logo.png') }}"
+                            <a href="index.html"><img src="{{ asset('front_assets/imgs/logo/logo.jpeg') }}"
                                     alt="logo')}}"></a>
                         </div>
                         <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
@@ -49,7 +49,7 @@
                         </p>
                         <p class="wow fadeIn animated">
                             <strong>Email: </strong>
-                            sharmadresses1@gmail.comn
+                            info@minibaazar.in
                         </p>
                         <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
                         <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
@@ -132,3 +132,5 @@
         </div>
     </div>
 </footer>
+
+{{-- 9547870506 Naru --}}
