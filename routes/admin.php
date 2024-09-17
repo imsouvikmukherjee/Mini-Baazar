@@ -137,15 +137,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
  Route::post('/getsub-sub-category',[ProductController::class,'getSubSubCategory']);
 
 
+
+
   //   Admin Login
 
   Route::get('/admin', function () {
     return view('admin.login.login');
   });
 
+//   Product routes
 
   Route::get('admin/manage-product',[ProductController::class,'manageProduct'])->name('manage_product');
   Route::get('admin/add-product',[ProductController::class,'addProduct'])->name('add_product');
+  Route::post('admin/product-store',[ProductController::class,'productStore'])->name('product.store');
 
 
   // payment gateway

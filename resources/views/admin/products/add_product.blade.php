@@ -31,7 +31,30 @@
                 <div class="card-body p-4">
                     {{-- <h5 class="card-title">Add New Product</h5>
 					  <hr/> --}}
-                    <form action="" method="post" enctype="multipart/form-data">
+
+
+                      @if ($errors->any())
+                          <div class="alert alert-danger">
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div>
+                      @endif
+
+
+                      @if(session('success'))
+                      <div class="alert alert-success text-center alert-dismissible fade show" role="alert">
+                          {{ session('success') }}
+                          {{-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button> --}}
+                      </div>
+
+                  @endif
+
+                    <form action="{{route('product.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-body mt-4">
                             <div class="row">
@@ -54,11 +77,20 @@
                                             <textarea class="form-control" id="editor" rows="3" name="long_description" placeholder="Enter long description"></textarea>
                                         </div>
 
+                                        <div class="col-md-6">
+                                            <label for="inputStarPoints" class="form-label">Product Type</label>
+                                            <select class="form-select "  id="inputCollection" name="product_type">
+                                                <option selected disabled>Choose</option>
+                                                <option value="0">Single</option>
+
+                                                <option value="1">Bulk</option>
+                                            </select>
+                                        </div>
+
                                         <div class="mb-3 mt-4">
                                             <h6 class="mb-0 text-uppercase">Product Varient</h6>
                                             <hr />
-                                            {{-- <div class="card">
-                                    <div class="card-body"> --}}
+
                                             <ul class="nav nav-pills mb-3" role="tablist">
                                                 <li class="nav-item" role="presentation">
                                                     <a class="nav-link active" data-bs-toggle="pill"
@@ -86,8 +118,7 @@
                                                 <div class="tab-pane fade show active" id="primary-pills-home"
                                                     role="tabpanel">
 
-                                                    {{-- <p class="mb-0 text-uppercase">Product Size</p>
-                                                <hr/> --}}
+
                                                     <div class="scrollable-row my-4">
 
 
@@ -99,27 +130,32 @@
                                                         </div>
                                                     </div>
 
-
-
                                                     <div class="mb-3">
+                                                        <label for="inputProductDescription" class="form-label">Product
+                                                            Images</label>
+
+                                                            <input type="file" name="single_product_images[]" class="form-control" multiple>
+                                                    </div>
+
+                                                    {{-- <div class="mb-3">
                                                         <label for="inputProductDescription" class="form-label">Product
                                                             Images</label>
                                                         <input id="image-uploadify" type="file"
                                                             accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
                                                             multiple>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                                 <div class="tab-pane fade" id="primary-pills-profile" role="tabpanel">
 
                                                     <div class="scrollable-row my-4">
 
 
-                                                        <button type="button" class="btn btn-light btn-sm add-size-row"><i
-                                                                class="bi bi-plus-lg"></i> Add Size</button>
+                                                        {{-- <button type="button" class="btn btn-light btn-sm add-size-row"><i
+                                                                class="bi bi-plus-lg"></i> Add Size</button> --}}
+                                                                <input type="color">
+                                                        {{-- <div id="size-row-container">
 
-                                                        <div id="size-row-container">
-
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
 
                                                     <hr>
@@ -139,8 +175,7 @@
                                                 </div>
 
                                             </div>
-                                            {{-- </div>
-                                </div> --}}
+
                                         </div>
 
 
@@ -222,9 +257,8 @@
                                                 <label for="inputCostPerPrice" class="form-label">Tax Class</label>
                                                 <select class="form-select" id="inputCollection" name="tax_class">
                                                     <option selected disabled>Choose</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <option value="1">India</option>
+
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
@@ -262,9 +296,9 @@
                                                 </label>
                                                 <select class="form-select" id="inputCollection" name="weight_class">
                                                     <option selected disabled>Choose</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <option value="One">One</option>
+                                                    <option value="Two">Two</option>
+                                                    <option value="Three">Three</option>
                                                 </select>
                                             </div>
 
@@ -275,24 +309,15 @@
                                             </div>
 
 
+
                                             <div class="col-md-6">
-                                                <label for="inputStarPoints" class="form-label">Stock Status
+                                                <label for="inputStarPoints" class="form-label">Product Status
                                                 </label>
-                                                <select class="form-select" id="inputCollection" name="stock_status">
+                                                <select class="form-select" id="inputCollection" name="product_status">
                                                     <option selected disabled>Choose</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="inputStarPoints" class="form-label">Status
-                                                </label>
-                                                <select class="form-select" id="inputCollection" name="status">
-                                                    <option selected disabled>Choose</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                    <option value="1">Available</option>
+                                                    <option value="0">Not Available</option>
+
                                                 </select>
                                             </div>
 
@@ -316,13 +341,20 @@
                                                 </select>
                                             </div>
 
-                                            {{-- <div class="col-12">
-									<label for="inputProductTags" class="form-label">Product Tags</label>
-									<input type="text" class="form-control" id="inputProductTags" placeholder="Enter Product Tags">
-								  </div> --}}
+
+                                            <div class="col-md-6">
+                                                <label for="inputStarPoints" class="form-label">Product Return</label>
+                                                <select class="form-select" id="inputCollection" name="product_return">
+                                                    <option selected disabled>Choose</option>
+                                                    <option value="1">Enable</option>
+                                                    <option value="0">Disable</option>
+
+                                                </select>
+                                            </div>
+
                                             <div class="col-12">
                                                 <div class="d-grid">
-                                                    <button type="button" class="btn btn-primary">Save Product</button>
+                                                    <button type="submit" class="btn btn-primary" >Save Product</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -457,22 +489,23 @@
         function createRow() {
             const newRow = document.createElement('div');
             newRow.className = 'row my-4';
+            const rowCount = document.querySelectorAll('#row-container .row').length;
             newRow.innerHTML = `
             <div class="col-md-3">
                 <label for="inputSize" class="form-label">Label</label>
-                <input type="text" class="form-control" placeholder="Label">
+                <input type="text" class="form-control" name="attributes[${rowCount}][label]" placeholder="Label">
             </div>
             <div class="col-md-3">
                 <label for="inputMRP" class="form-label">MRP</label>
-                <input type="number" class="form-control" placeholder="MRP">
+                <input type="number" class="form-control" name="attributes[${rowCount}][mrp]" placeholder="MRP">
             </div>
             <div class="col-md-3">
                 <label for="inputPrice" class="form-label">Price</label>
-                <input type="number" class="form-control" placeholder="Price">
+                <input type="number" class="form-control" name="attributes[${rowCount}][price]" placeholder="Price">
             </div>
             <div class="col-md-3">
                 <label for="inputQuantity" class="form-label">Quantity</label>
-                <input type="number" class="form-control" placeholder="Quantity">
+                <input type="number" class="form-control" name="attributes[${rowCount}][quantity]" placeholder="Quantity">
             </div>
             <div class="col-md-3">
                 <button type="button" class="btn btn-danger btn-sm mt-4 shadow-lg remove-row"><i class="bi bi-x-lg"></i></button>
@@ -505,22 +538,23 @@
         function createRow() {
             const newRow = document.createElement('div');
             newRow.className = 'row my-4';
+            const rowCount = document.querySelectorAll('#size-row-container .row').length;
             newRow.innerHTML = `
             <div class="col-md-3">
                 <label for="inputSize" class="form-label">Label</label>
-                <input type="text" class="form-control" placeholder="Label">
+                <input type="text" class="form-control" name="multattributes[${rowCount}][label]" placeholder="Label">
             </div>
             <div class="col-md-3">
                 <label for="inputMRP" class="form-label">MRP</label>
-                <input type="number" class="form-control" placeholder="MRP">
+                <input type="number" class="form-control" name="multattributes[${rowCount}][mrp]" placeholder="MRP">
             </div>
             <div class="col-md-3">
                 <label for="inputPrice" class="form-label">Price</label>
-                <input type="number" class="form-control" placeholder="Price">
+                <input type="number" class="form-control" name="multattributes[${rowCount}][price]" placeholder="Price">
             </div>
             <div class="col-md-3">
                 <label for="inputQuantity" class="form-label">Quantity</label>
-                <input type="number" class="form-control" placeholder="Quantity">
+                <input type="number" class="form-control" name="multattributes[${rowCount}][quantity]" placeholder="Quantity">
             </div>
             <div class="col-md-3">
                 <button type="button" class="btn btn-danger btn-sm mt-4 shadow-lg remove-row"><i class="bi bi-x-lg"></i></button>
@@ -553,62 +587,65 @@
         function createRow() {
             const newRow = document.createElement('div');
             newRow.className = 'row my-4';
+            const rowCount = document.querySelectorAll('#color-row-container .row').length;
+            // console.log(rowCount);
+
             newRow.innerHTML = `
             <div class="col-md-3">
                 <label for="inputSize" class="form-label">Label</label>
-                <input type="text" class="form-control" placeholder="Label">
+                <input type="text" class="form-control" name="colorattributes[${rowCount}][label]" placeholder="Label">
             </div>
             <div class="col-md-3">
                 <label for="inputMRP" class="form-label">MRP</label>
-                <input type="number" class="form-control" placeholder="MRP">
+                <input type="number" class="form-control" name="colorattributes[${rowCount}][mrp]" placeholder="MRP">
             </div>
             <div class="col-md-3">
                 <label for="inputPrice" class="form-label">Price</label>
-                <input type="number" class="form-control" placeholder="Price">
+                <input type="number" class="form-control" name="colorattributes[${rowCount}][price]" placeholder="Price">
             </div>
             <div class="col-md-3">
                 <label for="inputQuantity" class="form-label">Quantity</label>
-                <input type="number" class="form-control" placeholder="Quantity">
+                <input type="number" class="form-control" name="colorattributes[${rowCount}][quantity]" placeholder="Quantity">
             </div>
 
              <div class="col-md-3">
                 <label for="inputSize" class="form-label">Color</label>
-                <input type="text" class="form-control" placeholder="Color">
+                <input type="text" class="form-control" name="colorattributes[${rowCount}][color]" placeholder="Color">
             </div>
 
              <div class="col-md-3">
                 <label for="inputSize" class="form-label">Image 1</label>
-                <input type="file" class="form-control" placeholder="image 1">
+                <input type="file" class="form-control" name="colorattributes[${rowCount}][image1]" placeholder="image 1">
             </div>
 
              <div class="col-md-3">
                 <label for="inputSize" class="form-label">Image 2</label>
-                <input type="file" class="form-control" placeholder="image 1">
+                <input type="file" class="form-control" name="colorattributes[${rowCount}][image2]" placeholder="image 1">
             </div>
 
              <div class="col-md-3">
                 <label for="inputSize" class="form-label">Image 3</label>
-                <input type="file" class="form-control" placeholder="image 1">
+                <input type="file" class="form-control" name="colorattributes[${rowCount}][image3]" placeholder="image 1">
             </div>
 
              <div class="col-md-3">
                 <label for="inputSize" class="form-label">Image 4</label>
-                <input type="file" class="form-control" placeholder="image 1">
+                <input type="file" class="form-control" name="colorattributes[${rowCount}][image4]" placeholder="image 1">
             </div>
 
              <div class="col-md-3">
                 <label for="inputSize" class="form-label">Image 5</label>
-                <input type="file" class="form-control" placeholder="image 1">
+                <input type="file" class="form-control" name="colorattributes[${rowCount}][image5]" placeholder="image 1">
             </div>
 
              <div class="col-md-3">
                 <label for="inputSize" class="form-label">Image 6</label>
-                <input type="file" class="form-control" placeholder="image 1">
+                <input type="file" class="form-control" name="colorattributes[${rowCount}][image6]" placeholder="image 1">
             </div>
 
              <div class="col-md-3">
                 <label for="inputSize" class="form-label">Image 7</label>
-                <input type="file" class="form-control" placeholder="image 1">
+                <input type="file" class="form-control" name="colorattributes[${rowCount}][image7]" placeholder="image 1">
             </div>
 
             <div class="col-md-3">
