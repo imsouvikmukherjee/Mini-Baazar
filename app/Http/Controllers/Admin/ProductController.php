@@ -160,6 +160,7 @@ class ProductController extends Controller
             $insertedAttributeIds[$index] = $attributeId;
 
             $request->validate([
+
                 'colorattributes.*.label' => 'nullable|string|max:255',
                 'colorattributes.*.mrp' => 'nullable|numeric|min:1|max:1000000000.00',
                 'colorattributes.*.price' => 'nullable|numeric|min:1|max:1000000000.00',
