@@ -581,92 +581,60 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const rowContainer = document.getElementById('color-row-container');
+    const rowContainer = document.getElementById('color-row-container');
 
-        // Function to create a new row
-        function createRow() {
-            const newRow = document.createElement('div');
-            newRow.className = 'row my-4';
-            const rowCount = document.querySelectorAll('#color-row-container .row').length;
-            // console.log(rowCount);
+    // Function to create a new row
+    function createRow() {
+        const newRow = document.createElement('div');
+        newRow.className = 'row my-4';
+        const rowCount = document.querySelectorAll('#color-row-container .row').length;
 
-            newRow.innerHTML = `
+        newRow.innerHTML = `
             <div class="col-md-3">
-                <label for="inputSize" class="form-label">Label</label>
+                <label class="form-label">Label</label>
                 <input type="text" class="form-control" name="colorattributes[${rowCount}][label]" placeholder="Label">
             </div>
             <div class="col-md-3">
-                <label for="inputMRP" class="form-label">MRP</label>
+                <label class="form-label">MRP</label>
                 <input type="number" class="form-control" name="colorattributes[${rowCount}][mrp]" placeholder="MRP">
             </div>
             <div class="col-md-3">
-                <label for="inputPrice" class="form-label">Price</label>
+                <label class="form-label">Price</label>
                 <input type="number" class="form-control" name="colorattributes[${rowCount}][price]" placeholder="Price">
             </div>
             <div class="col-md-3">
-                <label for="inputQuantity" class="form-label">Quantity</label>
+                <label class="form-label">Quantity</label>
                 <input type="number" class="form-control" name="colorattributes[${rowCount}][quantity]" placeholder="Quantity">
             </div>
-
-             <div class="col-md-3">
-                <label for="inputSize" class="form-label">Color</label>
+            <div class="col-md-3">
+                <label class="form-label">Color</label>
                 <input type="text" class="form-control" name="colorattributes[${rowCount}][color]" placeholder="Color">
             </div>
-
-             <div class="col-md-3">
-                <label for="inputSize" class="form-label">Image 1</label>
-                <input type="file" class="form-control" name="colorattributes[${rowCount}][image1]" placeholder="image 1">
-            </div>
-
-             <div class="col-md-3">
-                <label for="inputSize" class="form-label">Image 2</label>
-                <input type="file" class="form-control" name="colorattributes[${rowCount}][image2]" placeholder="image 1">
-            </div>
-
-             <div class="col-md-3">
-                <label for="inputSize" class="form-label">Image 3</label>
-                <input type="file" class="form-control" name="colorattributes[${rowCount}][image3]" placeholder="image 1">
-            </div>
-
-             <div class="col-md-3">
-                <label for="inputSize" class="form-label">Image 4</label>
-                <input type="file" class="form-control" name="colorattributes[${rowCount}][image4]" placeholder="image 1">
-            </div>
-
-             <div class="col-md-3">
-                <label for="inputSize" class="form-label">Image 5</label>
-                <input type="file" class="form-control" name="colorattributes[${rowCount}][image5]" placeholder="image 1">
-            </div>
-
-             <div class="col-md-3">
-                <label for="inputSize" class="form-label">Image 6</label>
-                <input type="file" class="form-control" name="colorattributes[${rowCount}][image6]" placeholder="image 1">
-            </div>
-
-             <div class="col-md-3">
-                <label for="inputSize" class="form-label">Image 7</label>
-                <input type="file" class="form-control" name="colorattributes[${rowCount}][image7]" placeholder="image 1">
-            </div>
-
+            ${[1, 2, 3, 4, 5, 6, 7].map(i => `
             <div class="col-md-3">
-                <button type="button" class="btn btn-danger btn-sm mt-4 shadow-lg remove-color-row"><i class="bi bi-x-lg"></i></button>
+                <label class="form-label">Image ${i}</label>
+                <input type="file" class="form-control" name="colorattributes[${rowCount}][image${i}]">
+            </div>`).join('')}
+            <div class="col-md-3">
+                <button type="button" class="btn btn-danger btn-sm mt-4 remove-color-row"><i class="bi bi-x-lg"></i></button>
             </div>
         `;
 
-            // Attach event listener to the remove button in the new row
-            newRow.querySelector('.remove-color-row').addEventListener('click', function() {
-                this.closest('.row').remove();
-            });
-
-            return newRow;
-        }
-
-        // Event listener for the Add Row button
-        document.querySelector('.add-color-row').addEventListener('click', function() {
-            const newRow = createRow();
-            rowContainer.appendChild(newRow);
+        // Attach event listener to the remove button
+        newRow.querySelector('.remove-color-row').addEventListener('click', function() {
+            this.closest('.row').remove();
         });
+
+        return newRow;
+    }
+
+    // Event listener for the "Add Row" button
+    document.querySelector('.add-color-row').addEventListener('click', function() {
+        const newRow = createRow();
+        rowContainer.appendChild(newRow);
     });
+});
+
 </script>
 
 

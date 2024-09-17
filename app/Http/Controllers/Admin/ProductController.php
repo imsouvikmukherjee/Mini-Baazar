@@ -173,15 +173,16 @@ class ProductController extends Controller
                 'colorattributes.*.image6' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'colorattributes.*.image7' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             ]);
-
+            
             $colorAttributes = $request->input('colorattributes') ?? [];
-
+            
             foreach ($colorAttributes as $colorIndex => $colorattribute) {
                 $images = [];
-
+            
+                // Loop through image fields
                 for ($i = 1; $i <= 7; $i++) {
                     $imageField = 'image' . $i;
-
+            
                     if ($request->hasFile("colorattributes.$colorIndex.$imageField")) {
                         $imageFile = $request->file("colorattributes.$colorIndex.$imageField");
                         $imageName = $imageField . $colorIndex . time() . '.' . $imageFile->getClientOriginalExtension();
@@ -191,11 +192,11 @@ class ProductController extends Controller
                         $images[$imageField] = null;
                     }
                 }
-
-
+            
+                // Insert into database
                 DB::table('product_color_attribute')->insert([
                     'attributeid' => $attributeId,
-                    'label' => $colorattribute['label'],
+                    'label' => $colorattribute['label'] ?? null,
                     'mrp' => $colorattribute['mrp'] ?? null,
                     'price' => $colorattribute['price'] ?? null,
                     'quantity' => $colorattribute['quantity'] ?? null,
@@ -209,7 +210,7 @@ class ProductController extends Controller
                     'image7' => $images['image7'] ?? null,
                 ]);
             }
-
+            
         }
 
         return redirect()->back()->with('success', 'Product added successfully!');
