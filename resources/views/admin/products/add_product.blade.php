@@ -77,7 +77,7 @@
                                                 placeholder="Enter long description">{{old('long_description')}}</textarea>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <label for="inputStarPoints" class="form-label">Product Type</label>
                                             <select class="form-select " id="inputCollection" name="product_type">
                                                 <option selected disabled>Choose</option>
