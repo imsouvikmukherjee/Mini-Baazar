@@ -9,10 +9,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontController::class, 'index'])->name('home');
 Route::get('/about_us', [FrontController::class, 'about_us'])->name('about_us');
-Route::get('/delivery_information', [FrontController::class, 'delivery_information'])->name('delivery_information');
-Route::get('/privacy_policy', [FrontController::class, 'privacy_policy'])->name('privacy_policy');
-Route::get('/terms_conditions', [FrontController::class, 'terms_conditions'])->name('terms_conditions');
-Route::get('/contact_us', [FrontController::class, 'contact_us'])->name('contact_us');
+Route::get('/delivery-information', [FrontController::class, 'delivery_information'])->name('delivery_information');
+Route::get('/privacy-policy', [FrontController::class, 'privacy_policy'])->name('privacy_policy');
+Route::get('/terms-conditions', [FrontController::class, 'terms_conditions'])->name('terms_conditions');
+Route::get('/contact-us', [FrontController::class, 'contact_us'])->name('contact_us');
+Route::get('/cart', [FrontController::class, 'cart'])->name('cart');
+Route::get('/product-details', [FrontController::class, 'product_details'])->name('product_details');
+Route::get('/checkout', [FrontController::class, 'checkout'])->name('checkout');
 
 Route::get('/search', [McategoryController::class, 'search'])->name('search');
 

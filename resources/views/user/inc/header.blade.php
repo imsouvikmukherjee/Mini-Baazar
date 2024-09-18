@@ -100,7 +100,7 @@
                             @endif
 
                             <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="cart.html">
+                                <a class="mini-cart-icon" href="{{route('cart')}}">
                                     <i class="bi bi-cart"></i>
                                     <span class="pro-count blue">2</span>
 
@@ -139,7 +139,7 @@
                                             <h4>Total <span>$4000.00</span></h4>
                                         </div>
                                         <div class="shopping-cart-button">
-                                            <a href="cart.html" class="outline">View cart</a>
+                                            <a href="{{route('cart')}}" class="outline">View cart</a>
                                             <a href="checkout.html">Checkout</a>
                                         </div>
                                     </div>
