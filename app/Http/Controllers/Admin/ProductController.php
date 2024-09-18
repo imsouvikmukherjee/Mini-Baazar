@@ -57,7 +57,7 @@ class ProductController extends Controller
 
     public function productStore(Request $request){
 
-        // dd($request->all());
+        // dd($_POST);
 
 
         $validatedData = $request->validate([
@@ -157,60 +157,72 @@ class ProductController extends Controller
                 'images' => json_encode($singleProductImages)
             ]);
 
-            $insertedAttributeIds[$index] = $attributeId;
+            // dd("hello");
 
-            $request->validate([
+            $insertedAttributeIds[] = [
+                'id' => $attributeId,
+                'label' => $attribute['label']
+            ];
+        }
 
-                'colorattributes.*.label' => 'nullable|string|max:255',
-                'colorattributes.*.mrp' => 'nullable|numeric|min:1|max:1000000000.00',
-                'colorattributes.*.price' => 'nullable|numeric|min:1|max:1000000000.00',
-                'colorattributes.*.quantity' => 'nullable|numeric',
-                'colorattributes.*.color' => 'nullable|string|max:255',
-                'colorattributes.*.image1' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-                'colorattributes.*.image2' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-                'colorattributes.*.image3' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-                'colorattributes.*.image4' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-                'colorattributes.*.image5' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-                'colorattributes.*.image6' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-                'colorattributes.*.image7' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            ]);
 
-            $colorAttributes = $request->input('colorattributes') ?? [];
+        $request->validate([
 
-            foreach ($colorAttributes as $colorIndex => $colorattribute) {
-                $images = [];
+            'colorattributes.*.label' => 'nullable|string|max:255',
+            'colorattributes.*.mrp' => 'nullable|numeric|min:1|max:1000000000.00',
+            'colorattributes.*.price' => 'nullable|numeric|min:1|max:1000000000.00',
+            'colorattributes.*.quantity' => 'nullable|numeric',
+            'colorattributes.*.color' => 'nullable|string|max:255',
+            'colorattributes.*.image1' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'colorattributes.*.image2' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'colorattributes.*.image3' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'colorattributes.*.image4' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'colorattributes.*.image5' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'colorattributes.*.image6' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'colorattributes.*.image7' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
-                for ($i = 1; $i <= 7; $i++) {
-                    $imageField = 'image' . $i;
+        $colorAttributes = $request->input('colorattributes') ?? [];
 
-                    if ($request->hasFile("colorattributes.$colorIndex.$imageField")) {
-                        $imageFile = $request->file("colorattributes.$colorIndex.$imageField");
-                        $imageName = $imageField . $colorIndex . time() . '.' . $imageFile->getClientOriginalExtension();
-                        $imageFile->move(public_path('admin_assets/productimg'), $imageName);
-                        $images[$imageField] = $imageName;
-                    } else {
-                        $images[$imageField] = null;
-                    }
+        foreach ($colorAttributes as $colorIndex => $colorattribute) {
+            $images = [];
+
+            for ($i = 1; $i <= 7; $i++) {
+                $imageField = 'image' . $i;
+
+                if ($request->hasFile("colorattributes.$colorIndex.$imageField")) {
+                    $imageFile = $request->file("colorattributes.$colorIndex.$imageField");
+                    $imageName = $imageField . $colorIndex . time() . '.' . $imageFile->getClientOriginalExtension();
+                    $imageFile->move(public_path('admin_assets/productimg'), $imageName);
+                    $images[$imageField] = $imageName;
+                } else {
+                    $images[$imageField] = null;
                 }
-
-
-                DB::table('product_color_attribute')->insert([
-                    'attributeid' => $attributeId,
-                    'label' => $colorattribute['label'],
-                    'mrp' => $colorattribute['mrp'] ?? null,
-                    'price' => $colorattribute['price'] ?? null,
-                    'quantity' => $colorattribute['quantity'] ?? null,
-                    'color' => $colorattribute['color'] ?? null,
-                    'image1' => $images['image1'] ?? null,
-                    'image2' => $images['image2'] ?? null,
-                    'image3' => $images['image3'] ?? null,
-                    'image4' => $images['image4'] ?? null,
-                    'image5' => $images['image5'] ?? null,
-                    'image6' => $images['image6'] ?? null,
-                    'image7' => $images['image7'] ?? null,
-                ]);
             }
 
+            $attributeIdForColor = null;
+            foreach ($insertedAttributeIds as $insertedAttribute) {
+                if ($insertedAttribute['label'] == $colorattribute['label']) {
+                    $attributeIdForColor = $insertedAttribute['id'];
+                    break;
+                }
+            }
+
+            DB::table('product_color_attribute')->insert([
+                'attributeid' => $attributeIdForColor,
+                'label' => $colorattribute['label'],
+                'mrp' => $colorattribute['mrp'] ?? null,
+                'price' => $colorattribute['price'] ?? null,
+                'quantity' => $colorattribute['quantity'] ?? null,
+                'color' => $colorattribute['color'] ?? null,
+                'image1' => $images['image1'] ?? null,
+                'image2' => $images['image2'] ?? null,
+                'image3' => $images['image3'] ?? null,
+                'image4' => $images['image4'] ?? null,
+                'image5' => $images['image5'] ?? null,
+                'image6' => $images['image6'] ?? null,
+                'image7' => $images['image7'] ?? null,
+            ]);
         }
 
         return redirect()->back()->with('success', 'Product added successfully!');
