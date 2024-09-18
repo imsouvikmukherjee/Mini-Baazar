@@ -618,7 +618,7 @@ h4,
 h5,
 h6 {
   font-family: "Spartan", sans-serif;
-  color: #fdfdfd;
+  /* color: #fdfdfd; */
   font-weight: 600;
   line-height: 1.2;
 }
@@ -5325,7 +5325,7 @@ h6.post-title {
 }
 
 .logo.logo-width-1 a img {
-  width: 150px;
+  width: 110px;
   min-width: 80px;
   border-radius: 10px 69px 56px 93px;
   box-shadow: 6px 6px 5px #e20df0;

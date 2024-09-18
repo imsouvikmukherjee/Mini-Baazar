@@ -55,5 +55,20 @@ class FrontController extends Controller
         return view('user.contact_us');
         
     }
+    public function cart(){
+
+        return view('user.cart');
+        
+    }
+    public function product_details(){
+
+        return view('user.product-details');
+        
+    }
+    public function checkout(){
+
+        return view('user.checkout');
+        
+    }
     
 }
