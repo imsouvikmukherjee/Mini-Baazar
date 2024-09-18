@@ -45,7 +45,8 @@ return new class extends Migration
             $table->integer('maximum_order');
             $table->string('payment_type');
             $table->string('product_return');
-
+            $table->boolean('featured_product')->default(0);
+            $table->boolean('popular_product')->default(0);
             $table->timestamps();
         });
     }

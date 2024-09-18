@@ -147,6 +147,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 //   Product routes
 
+Route::post('/getsub-category',[ProductController::class,'getsubCategory']);
+ Route::post('/getsub-sub-category',[ProductController::class,'getSubSubCategory']);
+
   Route::get('admin/manage-product',[ProductController::class,'manageProduct'])->name('manage_product');
   Route::get('admin/add-product',[ProductController::class,'addProduct'])->name('add_product');
   Route::post('admin/product-store',[ProductController::class,'productStore'])->name('product.store');

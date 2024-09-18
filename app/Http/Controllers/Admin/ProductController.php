@@ -91,6 +91,9 @@ class ProductController extends Controller
 
         ]);
 
+        $featured_product = $request->has('featured_product') ? 1 : 0;
+        $popular_product = $request->has('popular_product') ? 1 : 0;
+
         $currentDate = Carbon::now()->format('Y-m-d');
 
         $productId = DB::table('product')->insertGetId([
@@ -121,6 +124,8 @@ class ProductController extends Controller
             'maximum_order' => $validatedData['maximum_order'],
             'payment_type' => $validatedData['payment_type'],
             'product_return' => $validatedData['product_return'],
+            'featured_product' => $featured_product,
+            'popular_product' => $popular_product,
             'created_at' => $currentDate
         ]);
 

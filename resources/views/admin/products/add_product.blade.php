@@ -33,28 +33,27 @@
 					  <hr/> --}}
 
 
-                      @if ($errors->any())
-                          <div class="alert alert-danger">
-                              <ul>
-                                  @foreach ($errors->all() as $error)
-                                      <li>{{ $error }}</li>
-                                  @endforeach
-                              </ul>
-                          </div>
-                      @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
 
-                      @if(session('success'))
-                      <div class="alert alert-success text-center alert-dismissible fade show" role="alert">
-                          {{ session('success') }}
-                          {{-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    @if (session('success'))
+                        <div class="alert alert-success text-center alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            {{-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button> --}}
-                      </div>
+                        </div>
+                    @endif
 
-                  @endif
-
-                    <form action="{{route('product.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-body mt-4">
                             <div class="row">
@@ -62,28 +61,29 @@
                                     <div class="border border-3 p-4 rounded">
                                         <div class="mb-3">
                                             <label for="inputProductTitle" class="form-label">Product Title</label>
-                                            <input type="text" class="form-control" id="inputProductTitle" name="product_title"
-                                                placeholder="Enter product title">
+                                            <input type="text" class="form-control" id="inputProductTitle"
+                                                name="product_title" value="{{old('product_title')}}" placeholder="Enter product title">
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="inputProductTitle" class="form-label">Short Description</label>
-                                            <input type="text" class="form-control" id="inputProductTitle" name="short_description"
-                                                placeholder="Enter short description">
+                                            <input type="text" class="form-control" id="inputProductTitle"
+                                                name="short_description" value="{{old('short_description')}}" placeholder="Enter short description">
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="inputProductDescription" class="form-label">Long Description</label>
-                                            <textarea class="form-control" id="editor" rows="3" name="long_description" placeholder="Enter long description"></textarea>
+                                            <textarea class="form-control" id="editor" rows="3" name="long_description"
+                                                placeholder="Enter long description">{{old('long_description')}}</textarea>
                                         </div>
 
                                         <div class="col-md-6">
                                             <label for="inputStarPoints" class="form-label">Product Type</label>
-                                            <select class="form-select "  id="inputCollection" name="product_type">
+                                            <select class="form-select " id="inputCollection" name="product_type">
                                                 <option selected disabled>Choose</option>
-                                                <option value="0">Single</option>
+                                                <option value="0" {{old('product_type') == '0'?'selected':''}}>Single</option>
 
-                                                <option value="1">Bulk</option>
+                                                <option value="1" {{old('product_type') == '1'?'selected':''}}>Bulk</option>
                                             </select>
                                         </div>
 
@@ -134,28 +134,18 @@
                                                         <label for="inputProductDescription" class="form-label">Product
                                                             Images</label>
 
-                                                            <input type="file" name="single_product_images[]" class="form-control" multiple>
+                                                        <input type="file" name="single_product_images[]"
+                                                            class="form-control" multiple>
                                                     </div>
 
-                                                    {{-- <div class="mb-3">
-                                                        <label for="inputProductDescription" class="form-label">Product
-                                                            Images</label>
-                                                        <input id="image-uploadify" type="file"
-                                                            accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"
-                                                            multiple>
-                                                    </div> --}}
+
                                                 </div>
                                                 <div class="tab-pane fade" id="primary-pills-profile" role="tabpanel">
 
                                                     <div class="scrollable-row my-4">
 
+                                                        <input type="color">
 
-                                                        {{-- <button type="button" class="btn btn-light btn-sm add-size-row"><i
-                                                                class="bi bi-plus-lg"></i> Add Size</button> --}}
-                                                                <input type="color">
-                                                        {{-- <div id="size-row-container">
-
-                                                        </div> --}}
                                                     </div>
 
                                                     <hr>
@@ -164,7 +154,8 @@
                                                     <div class="scrollable-row my-4">
 
 
-                                                        <button type="button" class="btn btn-light btn-sm add-color-row"><i
+                                                        <button type="button"
+                                                            class="btn btn-light btn-sm add-color-row"><i
                                                                 class="bi bi-plus-lg"></i> Add Color</button>
 
                                                         <div id="color-row-container">
@@ -183,19 +174,19 @@
 
                                         <div class="mb-3">
                                             <label for="inputProductTitle" class="form-label">Meta Title</label>
-                                            <input type="text" class="form-control" name="meta_title" id="inputProductTitle"
-                                                placeholder="Enter product title">
+                                            <input type="text" class="form-control" name="meta_title"
+                                                id="inputProductTitle" value="{{old('meta_title')}}" placeholder="Enter product title">
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="inputProductTitle" class="form-label">Meta Keywords</label>
-                                            <input type="text" class="form-control" name="meta_keywords" placeholder="Enter meta keywords"
-                                                data-role="tagsinput">
+                                            <input type="text" class="form-control" name="meta_keywords"
+                                                placeholder="Enter meta keywords" value="{{old('meta_keywords')}}" data-role="tagsinput">
                                         </div>
                                         <div class="mb-3">
                                             <label for="inputProductTitle" class="form-label">Meta Description</label>
-                                            <input type="text" class="form-control" id="inputProductTitle" name="meta_description"
-                                                placeholder="Enter product title">
+                                            <input type="text" class="form-control" id="inputProductTitle"
+                                                name="meta_description" value="{{old('meta_description')}}" placeholder="Enter product title">
                                         </div>
                                     </div>
                                 </div>
@@ -209,8 +200,8 @@
                                                 <label for="inputProductType" class="form-label">Category</label>
                                                 <select class="form-select" id="category" name="category">
                                                     <option selected disabled>Choose</option>
-                                                    @foreach($mcatogories as $item)
-                                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                                    @foreach ($mcatogories as $item)
+                                                        <option value="{{ $item->id }}" {{old('category') == $item->id?'selected':''}}>{{ $item->name }}</option>
                                                     @endforeach
 
                                                 </select>
@@ -236,7 +227,7 @@
                                                 <select class="form-select" id="inputCollection" name="manufacturer">
                                                     <option selected disabled>Choose</option>
                                                     @foreach ($manufacturers as $item)
-                                                    <option value="{{$item->id}}">{{$item->brand}}</option>
+                                                        <option value="{{ $item->id }}" {{old('manufacturer') == $item->id?'selected':''}}>{{ $item->brand }}</option>
                                                     @endforeach
 
 
@@ -247,28 +238,32 @@
                                             <hr>
                                             <div class="col-md-6">
                                                 <label for="inputPrice" class="form-label">Model</label>
-                                                <input type="text" class="form-control" id="inputPrice" name="model">
+                                                <input type="text" class="form-control" value="{{old('model')}}" id="inputPrice"
+                                                    name="model">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputCompareatprice" class="form-label">SKU</label>
-                                                <input type="text" class="form-control" id="inputCompareatprice" name="sku">
+                                                <input type="text" class="form-control"  value="{{old('sku')}}" id="inputCompareatprice"
+                                                    name="sku">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputCostPerPrice" class="form-label">Tax Class</label>
                                                 <select class="form-select" id="inputCollection" name="tax_class">
                                                     <option selected disabled>Choose</option>
-                                                    <option value="1">India</option>
+                                                    <option value="1" {{old('tax_class') == '1'?'selected':''}}>India</option>
 
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputStarPoints" class="form-label">GST</label>
-                                                <input type="number" class="form-control" id="inputStarPoints" name="gst">
+                                                <input type="number" class="form-control" value="{{old('gst')}}" id="inputStarPoints"
+                                                    name="gst">
                                             </div>
 
                                             <div class="col-md-6">
                                                 <label for="inputStarPoints" class="form-label">HSN Code</label>
-                                                <input type="number" class="form-control" id="inputStarPoints" name="hsn_code">
+                                                <input type="number" class="form-control" value="{{old('hsn_code')}}" id="inputStarPoints"
+                                                    name="hsn_code">
                                             </div>
 
                                             <h6 class="mt-5">Product Dimension</h6>
@@ -276,36 +271,41 @@
 
                                             <div class="col-md-6">
                                                 <label for="inputStarPoints" class="form-label">Length</label>
-                                                <input type="text" class="form-control" id="inputStarPoints" name="length">
+                                                <input type="text" class="form-control" value="{{old('length')}}" id="inputStarPoints"
+                                                    name="length">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputStarPoints" class="form-label">Width</label>
-                                                <input type="text" class="form-control" id="inputStarPoints" name="width">
+                                                <input type="text" class="form-control" value="{{old('width')}}" id="inputStarPoints"
+                                                    name="width">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputStarPoints" class="form-label">Height</label>
-                                                <input type="text" class="form-control" id="inputStarPoints" name="height">
+                                                <input type="text" class="form-control" value="{{old('height')}}" id="inputStarPoints"
+                                                    name="height">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputStarPoints" class="form-label">Available Date
                                                 </label>
-                                                <input type="date" class="form-control" id="inputStarPoints" name="available_date">
+                                                <input type="date" class="form-control" value="{{old('available_date')}}" id="inputStarPoints"
+                                                    name="available_date">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputStarPoints" class="form-label">Weight Class
                                                 </label>
                                                 <select class="form-select" id="inputCollection" name="weight_class">
                                                     <option selected disabled>Choose</option>
-                                                    <option value="One">One</option>
-                                                    <option value="Two">Two</option>
-                                                    <option value="Three">Three</option>
+                                                    <option value="One" {{old('weight_class') == 'One'?'selected':''}}>One</option>
+                                                    <option value="Two" {{old('weight_class') == 'Two'?'selected':''}}>Two</option>
+                                                    <option value="Three" {{old('weight_class') == 'Three'?'selected':''}}>Three</option>
                                                 </select>
                                             </div>
 
 
                                             <div class="col-md-6">
                                                 <label for="inputStarPoints" class="form-label">Weight</label>
-                                                <input type="text" class="form-control" id="inputStarPoints" name="weight">
+                                                <input type="text" class="form-control" value="{{old('weight')}}" id="inputStarPoints"
+                                                    name="weight">
                                             </div>
 
 
@@ -315,8 +315,8 @@
                                                 </label>
                                                 <select class="form-select" id="inputCollection" name="product_status">
                                                     <option selected disabled>Choose</option>
-                                                    <option value="1">Available</option>
-                                                    <option value="0">Not Available</option>
+                                                    <option value="1" {{old('product_status') == '1'?'selected':''}}>Available</option>
+                                                    <option value="0" {{old('product_status') == '0'?'selected':''}}>Not Available</option>
 
                                                 </select>
                                             </div>
@@ -325,19 +325,21 @@
 
                                             <div class="col-md-6">
                                                 <label for="inputStarPoints" class="form-label">Sort Product</label>
-                                                <input type="number" class="form-control" id="inputStarPoints" name="sort_product">
+                                                <input type="number" class="form-control" value="{{old('sort_product')}}" id="inputStarPoints"
+                                                    name="sort_product">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputStarPoints" class="form-label">Maximum Order</label>
-                                                <input type="number" class="form-control" id="inputStarPoints" name="maximum_order">
+                                                <input type="number" class="form-control" value="{{old('maximum_order')}}" id="inputStarPoints"
+                                                    name="maximum_order">
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="inputStarPoints" class="form-label">Payment Type</label>
                                                 <select class="form-select" id="inputCollection" name="payment_type">
                                                     <option selected disabled>Choose</option>
-                                                    <option value="1">Cash On Delivery</option>
-                                                    <option value="2">Online Payments</option>
-                                                    <option value="3">Both</option>
+                                                    <option value="1" {{old('payment_type') == '1'?'selected':''}}>Cash On Delivery</option>
+                                                    <option value="2" {{old('payment_type') == '2'?'selected':''}}>Online Payments</option>
+                                                    <option value="3" {{old('payment_type') == '3'?'selected':''}}>Both</option>
                                                 </select>
                                             </div>
 
@@ -346,15 +348,31 @@
                                                 <label for="inputStarPoints" class="form-label">Product Return</label>
                                                 <select class="form-select" id="inputCollection" name="product_return">
                                                     <option selected disabled>Choose</option>
-                                                    <option value="1">Enable</option>
-                                                    <option value="0">Disable</option>
+                                                    <option value="1" {{old('product_return') == '1'?'selected':''}}>Enable</option>
+                                                    <option value="0" {{old('product_return') == '0'?'selected':''}}>Disable</option>
 
                                                 </select>
                                             </div>
 
+                                            <div class="col-md-6">
+                                            <input class="form-check-input" type="checkbox" name="featured_product"  {{ old('featured_product') ? 'checked' : '' }}
+                                                id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Featured Product
+                                            </label>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <input class="form-check-input" type="checkbox" name="popular_product"  {{ old('popular_product') ? 'checked' : '' }}
+                                                    id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Popular Product
+                                                </label>
+                                                </div>
+
                                             <div class="col-12">
                                                 <div class="d-grid">
-                                                    <button type="submit" class="btn btn-primary" >Save Product</button>
+                                                    <button type="submit" class="btn btn-primary">Save Product</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -528,57 +546,6 @@
     });
 </script>
 
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const rowContainer = document.getElementById('size-row-container');
-
-        // Function to create a new row
-        function createRow() {
-            const newRow = document.createElement('div');
-            newRow.className = 'row my-4';
-            const rowCount = document.querySelectorAll('#size-row-container .row').length;
-            newRow.innerHTML = `
-            <div class="col-md-3">
-                <label for="inputSize" class="form-label">Label</label>
-                <input type="text" class="form-control" name="multattributes[${rowCount}][label]" placeholder="Label">
-            </div>
-            <div class="col-md-3">
-                <label for="inputMRP" class="form-label">MRP</label>
-                <input type="number" class="form-control" name="multattributes[${rowCount}][mrp]" placeholder="MRP">
-            </div>
-            <div class="col-md-3">
-                <label for="inputPrice" class="form-label">Price</label>
-                <input type="number" class="form-control" name="multattributes[${rowCount}][price]" placeholder="Price">
-            </div>
-            <div class="col-md-3">
-                <label for="inputQuantity" class="form-label">Quantity</label>
-                <input type="number" class="form-control" name="multattributes[${rowCount}][quantity]" placeholder="Quantity">
-            </div>
-            <div class="col-md-3">
-                <button type="button" class="btn btn-danger btn-sm mt-4 shadow-lg remove-row"><i class="bi bi-x-lg"></i></button>
-            </div>
-        `;
-
-            // Attach event listener to the remove button in the new row
-            newRow.querySelector('.remove-row').addEventListener('click', function() {
-                this.closest('.row').remove();
-            });
-
-            return newRow;
-        }
-
-        // Event listener for the Add Row button
-        document.querySelector('.add-size-row').addEventListener('click', function() {
-            const newRow = createRow();
-            rowContainer.appendChild(newRow);
-        });
-    });
-</script>
-
-
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const rowContainer = document.getElementById('color-row-container');
@@ -668,7 +635,3 @@
         });
     });
 </script>
-
-
-
-
