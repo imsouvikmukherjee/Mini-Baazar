@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('product_color_attribute', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('productId');
             $table->unsignedBigInteger('attributeId');
             $table->foreign('attributeId')->references('id')->on('product_attribute')->onDelete('cascade');
             $table->string('label');

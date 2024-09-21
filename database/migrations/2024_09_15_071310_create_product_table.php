@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('product', function (Blueprint $table) {
             $table->id();
+            $table->json('attributeId');
             $table->string('product_title');
             $table->string('short_description');
             $table->text('long_description');
@@ -45,6 +46,8 @@ return new class extends Migration
             $table->integer('maximum_order');
             $table->string('payment_type');
             $table->string('product_return');
+            $table->string('product_warrenty');
+            $table->string('tax');
             $table->boolean('featured_product')->default(0);
             $table->boolean('popular_product')->default(0);
             $table->timestamps();

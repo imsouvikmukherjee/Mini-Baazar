@@ -59,8 +59,52 @@ class ProductController extends Controller
 
         // dd($_POST);
 
+        $request->validate([
+            'attributes.*.label' => 'required|string|max:255',
+            'attributes.*.mrp' => 'nullable|numeric|min:1|max:1000000000.00',
+            'attributes.*.price' => 'nullable|numeric|min:1|max:1000000000.00',
+            'attributes.*.quantity' => 'nullable|numeric',
+            'single_product_images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+
+        $singleProductImages = [];
+
+
+        if ($request->hasFile('single_product_images')) {
+            foreach ($request->file('single_product_images') as $image) {
+                $imageName = 'singleProductImage'.time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('admin_assets/productimg'), $imageName);
+                $singleProductImages[] = $imageName;
+            }
+        }
+
+        $attributes = $request->input('attributes') ?? [];
+        $insertedAttributeIds = [];
+        $attributeIdForProduct = [];
+
+        foreach ($attributes as $index => $attribute) {
+            $attributeId = DB::table('product_attribute')->insertGetId([
+                // 'productid' => $productId,
+                'label' => $attribute['label'],
+                'mrp' => $attribute['mrp'],
+                'price' => $attribute['price'],
+                'quantity' => $attribute['quantity'],
+                'images' => json_encode($singleProductImages)
+            ]);
+
+            // dd("hello");
+
+            $attributeIdForProduct[] = $attributeId;
+
+            $insertedAttributeIds[] = [
+                'id' => $attributeId,
+                'label' => $attribute['label']
+            ];
+        }
+
 
         $validatedData = $request->validate([
+            // 'attributeId' =>'required',
             'product_title' => 'required|string|max:255',
             'short_description' => 'required|string|max:255',
             'long_description' => 'required',
@@ -87,7 +131,10 @@ class ProductController extends Controller
             'sort_product' => 'nullable|integer',
             'maximum_order' => 'required|integer',
             'payment_type' => 'required|string|max:255',
+
             'product_return' => 'required|string|max:255',
+            'product_warrenty' => 'required|string|max:255',
+            'tax' => 'required|string|max:255',
 
         ]);
 
@@ -97,6 +144,7 @@ class ProductController extends Controller
         $currentDate = Carbon::now()->format('Y-m-d');
 
         $productId = DB::table('product')->insertGetId([
+            'attributeId' =>json_encode($attributeIdForProduct),
             'product_title' => $validatedData['product_title'],
             'short_description' => $validatedData['short_description'],
             'long_description' => $validatedData['long_description'],
@@ -124,51 +172,16 @@ class ProductController extends Controller
             'maximum_order' => $validatedData['maximum_order'],
             'payment_type' => $validatedData['payment_type'],
             'product_return' => $validatedData['product_return'],
+            'product_warrenty' => $validatedData['product_warrenty'],
+            'tax' => $validatedData['tax'],
+
             'featured_product' => $featured_product,
             'popular_product' => $popular_product,
             'created_at' => $currentDate
         ]);
 
 
-        $request->validate([
-            'attributes.*.label' => 'required|string|max:255',
-            'attributes.*.mrp' => 'nullable|numeric|min:1|max:1000000000.00',
-            'attributes.*.price' => 'nullable|numeric|min:1|max:1000000000.00',
-            'attributes.*.quantity' => 'nullable|numeric',
-            'single_product_images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
-        ]);
 
-        $singleProductImages = [];
-
-
-        if ($request->hasFile('single_product_images')) {
-            foreach ($request->file('single_product_images') as $image) {
-                $imageName = 'singleProductImage'.time() . '_' . $image->getClientOriginalName();
-                $image->move(public_path('admin_assets/productimg'), $imageName);
-                $singleProductImages[] = $imageName;
-            }
-        }
-
-        $attributes = $request->input('attributes') ?? [];
-        $insertedAttributeIds = [];
-
-        foreach ($attributes as $index => $attribute) {
-            $attributeId = DB::table('product_attribute')->insertGetId([
-                'productid' => $productId,
-                'label' => $attribute['label'],
-                'mrp' => $attribute['mrp'],
-                'price' => $attribute['price'],
-                'quantity' => $attribute['quantity'],
-                'images' => json_encode($singleProductImages)
-            ]);
-
-            // dd("hello");
-
-            $insertedAttributeIds[] = [
-                'id' => $attributeId,
-                'label' => $attribute['label']
-            ];
-        }
 
 
         $request->validate([
@@ -214,6 +227,7 @@ class ProductController extends Controller
             }
 
             DB::table('product_color_attribute')->insert([
+                'productId' => $productId,
                 'attributeid' => $attributeIdForColor,
                 'label' => $colorattribute['label'],
                 'mrp' => $colorattribute['mrp'] ?? null,

@@ -348,8 +348,31 @@
                                                 <label for="inputStarPoints" class="form-label">Product Return</label>
                                                 <select class="form-select" id="inputCollection" name="product_return">
                                                     <option selected disabled>Choose</option>
-                                                    <option value="1" {{old('product_return') == '1'?'selected':''}}>Enable</option>
+                                                    {{-- <option value="1" {{old('product_return') == '1'?'selected':''}}>Enable</option> --}}
                                                     <option value="0" {{old('product_return') == '0'?'selected':''}}>Disable</option>
+                                                    <option value="1" {{old('product_return') == '1'?'selected':''}}>1 Days</option>
+                                                    <option value="2" {{old('product_return') == '2'?'selected':''}}>2 Days</option>
+                                                    <option value="3" {{old('product_return') == '3'?'selected':''}}>3 Days</option>
+                                                    <option value="4" {{old('product_return') == '4'?'selected':''}}>4 Days</option>
+                                                    <option value="5" {{old('product_return') == '5'?'selected':''}}>5 Days</option>
+                                                    <option value="6" {{old('product_return') == '6'?'selected':''}}>6 Days</option>
+                                                    <option value="7" {{old('product_return') == '7'?'selected':''}}>7 Days</option>
+
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label for="inputStarPoints" class="form-label">Product Warrenty</label>
+                                                <input type="text" class="form-control" value="{{old('product_warrenty')}}" id="inputStarPoints"
+                                                    name="product_warrenty">
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label for="inputStarPoints" class="form-label">Tax</label>
+                                                <select class="form-select" id="inputCollection" name="tax">
+                                                    <option selected disabled>Choose</option>
+                                                    <option value="0" {{old('tax') == '0'?'selected':''}}>Inclusive</option>
+                                                    <option value="1" {{old('tax') == '1'?'selected':''}}>Exclusive</option>
 
                                                 </select>
                                             </div>

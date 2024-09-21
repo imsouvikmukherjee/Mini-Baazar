@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('product_attribute', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('productid');
-            $table->foreign('productid')->references('id')->on('product')->onDelete('cascade');
+            // $table->unsignedBigInteger('productid');
+            // $table->foreign('productid')->references('id')->on('product')->onDelete('cascade');
             $table->string('label');
             $table->decimal('mrp', 8, 2)->nullable();
             $table->decimal('price', 8, 2)->nullable();
