@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('product', function (Blueprint $table) {
             $table->id();
-            $table->json('attributeId');
+            // $table->json('attributeId');
             $table->string('product_title');
             $table->string('short_description');
             $table->text('long_description');
             $table->string('product_type');
+            $table->string('single_product_images');
             $table->string('meta_title')->nullable();
             $table->text('meta_keywords')->nullable();
             $table->text('meta_description')->nullable();
@@ -48,6 +49,8 @@ return new class extends Migration
             $table->string('product_return');
             $table->string('product_warrenty');
             $table->string('tax');
+            $table->decimal('product_mrp', 8, 2);
+            $table->decimal('product_price', 8, 2);
             $table->boolean('featured_product')->default(0);
             $table->boolean('popular_product')->default(0);
             $table->timestamps();

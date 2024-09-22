@@ -155,6 +155,7 @@ Route::post('/getsub-category',[ProductController::class,'getsubCategory']);
   Route::post('admin/product-store',[ProductController::class,'productStore'])->name('product.store');
 
 
+
   // payment gateway
 
   Route::get('/payment_gateway', function () {

@@ -91,7 +91,7 @@
                                             <h6 class="mb-0 text-uppercase">Product Varient</h6>
                                             <hr />
 
-                                            <ul class="nav nav-pills mb-3" role="tablist">
+                                            {{-- <ul class="nav nav-pills mb-3" role="tablist">
                                                 <li class="nav-item" role="presentation">
                                                     <a class="nav-link active" data-bs-toggle="pill"
                                                         href="#primary-pills-home" role="tab" aria-selected="true">
@@ -113,8 +113,8 @@
                                                     </a>
                                                 </li>
 
-                                            </ul>
-                                            <div class="tab-content" id="pills-tabContent">
+                                            </ul> --}}
+                                            {{-- <div class="tab-content" id="pills-tabContent">
                                                 <div class="tab-pane fade show active" id="primary-pills-home"
                                                     role="tabpanel">
 
@@ -165,11 +165,30 @@
 
                                                 </div>
 
+                                            </div> --}}
+
+                                            <div class="scrollable-row my-4">
+
+                                                {{-- <div>
+                                                <input type="color">
+                                            </div> --}}
+
+                                                <button type="button" class="btn btn-light btn-sm add-row"><i
+                                                        class="bi bi-plus-lg"></i> Add Varient</button>
+
+                                                <div id="row-container">
+
+                                                </div>
                                             </div>
 
                                         </div>
 
-
+                                        <div class="mb-3">
+                                            <label for="inputProductTitle" class="form-label">Product Front Image</label>
+                                            <input type="file" class="form-control"
+                                                id="inputProductTitle" name="single_product_images[]"
+                                                 multiple>
+                                        </div>
 
 
                                         <div class="mb-3">
@@ -378,6 +397,18 @@
                                             </div>
 
                                             <div class="col-md-6">
+                                                <label for="inputStarPoints" class="form-label">Product MRP</label>
+                                                <input type="number" class="form-control" value="{{old('product_mrp')}}" id="inputStarPoints"
+                                                    name="product_mrp">
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label for="inputStarPoints" class="form-label">Product Price</label>
+                                                <input type="number" class="form-control" value="{{old('product_price')}}" id="inputStarPoints"
+                                                    name="product_price">
+                                            </div>
+
+                                            <div class="col-md-6">
                                             <input class="form-check-input" type="checkbox" name="featured_product"  {{ old('featured_product') ? 'checked' : '' }}
                                                 id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
@@ -537,6 +568,11 @@
                 <input type="text" class="form-control" name="attributes[${rowCount}][label]" placeholder="Label">
             </div>
             <div class="col-md-3">
+                <label class="form-label">Color</label>
+                <input type="text" class="form-control" name="attributes[${rowCount}][color]" placeholder="Color">
+            </div>
+
+            <div class="col-md-3">
                 <label for="inputMRP" class="form-label">MRP</label>
                 <input type="number" class="form-control" name="attributes[${rowCount}][mrp]" placeholder="MRP">
             </div>
@@ -549,8 +585,13 @@
                 <input type="number" class="form-control" name="attributes[${rowCount}][quantity]" placeholder="Quantity">
             </div>
             <div class="col-md-3">
+                <label class="form-label">Images</label>
+                <input type="file" class="form-control" name="attributes[${rowCount}][images][]" multiple>
+            </div>
+            <div class="col-md-3">
                 <button type="button" class="btn btn-danger btn-sm mt-4 shadow-lg remove-row"><i class="bi bi-x-lg"></i></button>
             </div>
+
         `;
 
             // Attach event listener to the remove button in the new row
@@ -569,60 +610,4 @@
     });
 </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const rowContainer = document.getElementById('color-row-container');
 
-    // Function to create a new row
-    function createRow() {
-        const newRow = document.createElement('div');
-        newRow.className = 'row my-4';
-        const rowCount = document.querySelectorAll('#color-row-container .row').length;
-
-        newRow.innerHTML = `
-            <div class="col-md-3">
-                <label class="form-label">Label</label>
-                <input type="text" class="form-control" name="colorattributes[${rowCount}][label]" placeholder="Label">
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">MRP</label>
-                <input type="number" class="form-control" name="colorattributes[${rowCount}][mrp]" placeholder="MRP">
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">Price</label>
-                <input type="number" class="form-control" name="colorattributes[${rowCount}][price]" placeholder="Price">
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">Quantity</label>
-                <input type="number" class="form-control" name="colorattributes[${rowCount}][quantity]" placeholder="Quantity">
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">Color</label>
-                <input type="text" class="form-control" name="colorattributes[${rowCount}][color]" placeholder="Color">
-            </div>
-            ${[1, 2, 3, 4, 5, 6, 7].map(i => `
-            <div class="col-md-3">
-                <label class="form-label">Image ${i}</label>
-                <input type="file" class="form-control" name="colorattributes[${rowCount}][image${i}]">
-            </div>`).join('')}
-            <div class="col-md-3">
-                <button type="button" class="btn btn-danger btn-sm mt-4 remove-color-row"><i class="bi bi-x-lg"></i></button>
-            </div>
-        `;
-
-        // Attach event listener to the remove button
-        newRow.querySelector('.remove-color-row').addEventListener('click', function() {
-            this.closest('.row').remove();
-        });
-
-        return newRow;
-    }
-
-    // Event listener for the "Add Row" button
-    document.querySelector('.add-color-row').addEventListener('click', function() {
-        const newRow = createRow();
-        rowContainer.appendChild(newRow);
-    });
-});
-
-</script>
