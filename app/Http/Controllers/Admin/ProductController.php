@@ -178,8 +178,8 @@ class ProductController extends Controller
         $request->validate([
             'attributes.*.label' => 'required|string|max:255',
             'attributes.*.color' => 'required|string|max:255',
-            'attributes.*.mrp' => 'nullable|numeric|min:1|max:1000000000.00',
-            'attributes.*.price' => 'nullable|numeric|min:1|max:1000000000.00',
+            'attributes.*.mrp' => 'nullable|numeric|min:0|max:1000000000.00',
+            'attributes.*.price' => 'nullable|numeric|min:0|max:1000000000.00',
             'attributes.*.quantity' => 'nullable|numeric',
             'attributes.*.images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
