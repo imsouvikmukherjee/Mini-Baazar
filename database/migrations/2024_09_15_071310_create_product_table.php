@@ -47,7 +47,7 @@ return new class extends Migration
             $table->integer('maximum_order');
             $table->string('payment_type');
             $table->string('product_return');
-            $table->string('product_warrenty');
+            $table->string('product_warrenty')->nullable();
             $table->string('tax');
             $table->decimal('product_mrp', 8, 2);
             $table->decimal('product_price', 8, 2);

@@ -108,7 +108,7 @@ class ProductController extends Controller
             'maximum_order' => 'required|integer',
             'payment_type' => 'required|string|max:255',
             'product_return' => 'required|string|max:255',
-            'product_warrenty' => 'required|string|max:255',
+            'product_warrenty' => 'nullable|string|max:255',
             'tax' => 'required|string|max:255',
             'product_mrp' => 'required|numeric|min:1|max:1000000000.00',
             'product_price' => 'required|numeric|min:1|max:1000000000.00',
