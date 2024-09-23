@@ -167,27 +167,80 @@
 
                                             </div> --}}
 
-                                            <div class="scrollable-row my-4">
+                                            {{-- <div class="scrollable-row my-4"> --}}
 
                                                 {{-- <div>
                                                 <input type="color">
                                             </div> --}}
 
-                                                <button type="button" class="btn btn-light btn-sm add-row"><i
+                                                {{-- <button type="button" class="btn btn-light btn-sm add-row"><i
                                                         class="bi bi-plus-lg"></i> Add Varient</button>
 
                                                 <div id="row-container">
 
+                                                </div>
+                                            </div> --}}
+
+
+                                            <div class="scrollable-row my-4">
+                                                <button type="button" class="btn btn-light btn-sm add-row">
+                                                    <i class="bi bi-plus-lg"></i> Add Varient
+                                                </button>
+
+                                                <div id="row-container">
+                                                    {{-- Check if there are old input values for attributes --}}
+                                                    @if(old('attributes'))
+                                                        @foreach(old('attributes') as $index => $attribute)
+                                                        <div class="row my-4">
+                                                            <div class="col-md-3">
+                                                                <label for="inputSize" class="form-label">Label</label>
+                                                                <input type="text" class="form-control" name="attributes[{{ $index }}][label]"
+                                                                       placeholder="Label" value="{{ $attribute['label'] }}">
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">Color</label>
+                                                                <input type="text" class="form-control" name="attributes[{{ $index }}][color]"
+                                                                       placeholder="Color" value="{{ $attribute['color'] }}">
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="inputMRP" class="form-label">MRP</label>
+                                                                <input type="number" class="form-control" name="attributes[{{ $index }}][mrp]"
+                                                                       placeholder="MRP" value="{{ $attribute['mrp'] }}">
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="inputPrice" class="form-label">Price</label>
+                                                                <input type="number" class="form-control" name="attributes[{{ $index }}][price]"
+                                                                       placeholder="Price" value="{{ $attribute['price'] }}">
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="inputQuantity" class="form-label">Quantity</label>
+                                                                <input type="number" class="form-control" name="attributes[{{ $index }}][quantity]"
+                                                                       placeholder="Quantity" value="{{ $attribute['quantity'] }}">
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">Images</label>
+                                                                <input type="file" class="form-control" name="attributes[{{ $index }}][images][]" multiple>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <button type="button" class="btn btn-danger btn-sm mt-4 shadow-lg remove-row">
+                                                                    <i class="bi bi-x-lg"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        @endforeach
+                                                    @endif
                                                 </div>
                                             </div>
 
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="inputProductTitle" class="form-label">Product Front Image</label>
+                                            <label for="inputProductTitle" class="form-label">Single Product Image</label>
                                             <input type="file" class="form-control"
                                                 id="inputProductTitle" name="single_product_images[]"
                                                  multiple>
+
+                                                 {{-- <input id="image-uploadify" type="file" name="single_product_images[]" multiple> --}}
                                         </div>
 
 
@@ -553,11 +606,11 @@
 
 
 
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         const rowContainer = document.getElementById('row-container');
 
-        // Function to create a new row
+
         function createRow() {
             const newRow = document.createElement('div');
             newRow.className = 'row my-4';
@@ -594,11 +647,68 @@
 
         `;
 
+
+            newRow.querySelector('.remove-row').addEventListener('click', function() {
+                this.closest('.row').remove();
+            });
+
+            return newRow;
+        }
+
+
+        document.querySelector('.add-row').addEventListener('click', function() {
+            const newRow = createRow();
+            rowContainer.appendChild(newRow);
+        });
+    });
+</script> --}}
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const rowContainer = document.getElementById('row-container');
+        let rowCount = document.querySelectorAll('#row-container .row').length;
+
+        // Function to create a new row with optional parameters
+        function createRow(label = '', color = '', mrp = '', price = '', quantity = '') {
+            const newRow = document.createElement('div');
+            newRow.className = 'row my-4';
+            newRow.innerHTML = `
+            <div class="col-md-3">
+                <label for="inputSize" class="form-label">Label</label>
+                <input type="text" class="form-control" name="attributes[${rowCount}][label]" placeholder="Label" value="${label}">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Color</label>
+                <input type="text" class="form-control" name="attributes[${rowCount}][color]" placeholder="Color" value="${color}">
+            </div>
+            <div class="col-md-3">
+                <label for="inputMRP" class="form-label">MRP</label>
+                <input type="number" class="form-control" name="attributes[${rowCount}][mrp]" placeholder="MRP" value="${mrp}">
+            </div>
+            <div class="col-md-3">
+                <label for="inputPrice" class="form-label">Price</label>
+                <input type="number" class="form-control" name="attributes[${rowCount}][price]" placeholder="Price" value="${price}">
+            </div>
+            <div class="col-md-3">
+                <label for="inputQuantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" name="attributes[${rowCount}][quantity]" placeholder="Quantity" value="${quantity}">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Images</label>
+                <input type="file" class="form-control" name="attributes[${rowCount}][images][]" multiple>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-danger btn-sm mt-4 shadow-lg remove-row"><i class="bi bi-x-lg"></i></button>
+            </div>
+            `;
+
             // Attach event listener to the remove button in the new row
             newRow.querySelector('.remove-row').addEventListener('click', function() {
                 this.closest('.row').remove();
             });
 
+            rowCount++;
             return newRow;
         }
 

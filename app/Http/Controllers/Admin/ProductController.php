@@ -84,6 +84,7 @@ class ProductController extends Controller
             'short_description' => 'required|string|max:255',
             'long_description' => 'required',
             'product_type' => 'required|string|max:255',
+            'single_product_images' => 'required',
             'meta_title' => 'nullable|string|max:255',
             'meta_keywords' => 'nullable|string',
             'meta_description' => 'nullable|string',
@@ -176,11 +177,11 @@ class ProductController extends Controller
 
 
         $request->validate([
-            'attributes.*.label' => 'required|string|max:255',
-            'attributes.*.color' => 'required|string|max:255',
-            'attributes.*.mrp' => 'nullable|numeric|min:0|max:1000000000.00',
-            'attributes.*.price' => 'nullable|numeric|min:0|max:1000000000.00',
-            'attributes.*.quantity' => 'nullable|numeric',
+            'attributes.*.label' => 'nullable|string|max:255',
+            'attributes.*.color' => 'nullable|string|max:255',
+            'attributes.*.mrp' => 'required|numeric|min:0|max:1000000000.00',
+            'attributes.*.price' => 'required|numeric|min:0|max:1000000000.00',
+            'attributes.*.quantity' => 'required|numeric',
             'attributes.*.images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 

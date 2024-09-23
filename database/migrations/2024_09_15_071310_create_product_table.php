@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('short_description');
             $table->text('long_description');
             $table->string('product_type');
-            $table->string('single_product_images');
+            $table->text('single_product_images');
             $table->string('meta_title')->nullable();
             $table->text('meta_keywords')->nullable();
             $table->text('meta_description')->nullable();
