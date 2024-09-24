@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('productid');
             $table->foreign('productid')->references('id')->on('product')->onDelete('cascade');
-            $table->string('label');
-            $table->string('color');
-            $table->decimal('mrp', 8, 2)->nullable();
-            $table->decimal('price', 8, 2)->nullable();
-            $table->integer('quantity')->nullable();
+            $table->string('label')->nullable();
+            $table->string('color')->nullable();
+            $table->decimal('mrp', 8, 2);
+            $table->decimal('price', 8, 2);
+            $table->integer('quantity');
 
             $table->text('images')->nullable();
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 
