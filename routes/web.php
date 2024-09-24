@@ -14,7 +14,8 @@ Route::get('/privacy-policy', [FrontController::class, 'privacy_policy'])->name(
 Route::get('/terms-conditions', [FrontController::class, 'terms_conditions'])->name('terms_conditions');
 Route::get('/contact-us', [FrontController::class, 'contact_us'])->name('contact_us');
 Route::get('/cart', [FrontController::class, 'cart'])->name('cart');
-Route::get('/product-details', [FrontController::class, 'product_details'])->name('product_details');
+Route::get('/product-details/{id}', [FrontController::class, 'product_details'])->name('product_details');
+Route::post('/color-by-image', [FrontController::class, 'color_by_image'])->name('color_by_image');
 Route::get('/checkout', [FrontController::class, 'checkout'])->name('checkout');
 
 Route::get('/search', [McategoryController::class, 'search'])->name('search');
